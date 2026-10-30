@@ -19,20 +19,20 @@ BRCT_LENGTH = BRCT_END - BRCT_START + 1  # 214 residues
 # which helps ESM-2 make better predictions near the C-terminal boundary.
 # Only positions 1646-1859 are scored.
 # ---------------------------------------------------------------------------
-# Full sequence provided in project spec (residues 1646 onward, ~244 aa).
+# Verified against https://rest.uniprot.org/uniprotkb/P38398.fasta
+# Residues 1646-1863 (BRCT domain + 4 C-terminal residues to end of protein).
 # We score only positions 1646-1859 (first 214 residues); the rest is context.
 _BRCT_CONTEXT_SEQ = (
-    "KKNRLRRKQHSQTFFTDHIRDHI"
-    "ILVEVTCSNSGQVYAALITQKQK"
-    "ESQKSAHQNSVDRGPTGSNAQIQ"
-    "LHNEHILNLRSSTLNKHINFLKS"
-    "QEQIDCNELISVHQAGKNTLDTL"
-    "TNTMIDFNRNHLDQLNNRFQKLL"
-    "SNLISKQKNTLNKITEEKRINAL"
-    "ESALQTQELETLGKQLLLENHTKF"
-    "NISFPHNAFKENDNAINNTLMAL"
-    "DLGQRHINKKVNRELKLLATQMD"
-    "SYLKAFLEQVRQI"
+    "VNKRMSMVVSGLTPEEFMLVYKFA"
+    "RKHHITLTNLITEETTHVVMKTDA"
+    "EFVCERTLKYFLGIAGGKWVVSYF"
+    "WVTQSIKERKMLNEHDFEVRGDVV"
+    "NGRNHQGPKRARESQDRKIFRGLE"
+    "ICCYGPFTNMPTDQLEWMVQLCGA"
+    "SVVKELSSFTLGTGVHPIVVVQPD"
+    "AWTEDNGFHAIGQMCEAPVVTREW"
+    "VLDSVALYQCQELDTYLIPQIP"
+    "HSHY"
 )
 
 # The scored domain is exactly the first 214 residues

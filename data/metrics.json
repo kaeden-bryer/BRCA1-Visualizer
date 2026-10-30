@@ -1,6 +1,6 @@
 {
-  "auroc": 0.8405,
+  "auroc": 0.508,
   "n_variants": 4066,
-  "n_with_sge": 2841,
-  "model": "esm2_t33_650M_UR50D"
+  "n_with_sge": 1178,
+  "model": "STUB (random ESM scores)"
 }
