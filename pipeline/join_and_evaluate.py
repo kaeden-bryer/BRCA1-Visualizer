@@ -26,6 +26,7 @@ from pipeline.config import (
     SGE_CACHE_FILE,
     VARIANT_SCORES_FILE,
     cache_path,
+    classify_sge,
     data_path,
 )
 
@@ -66,6 +67,11 @@ def join_scores(esm_df, sge_df):
         for col in join_cols:
             esm_df[col] = esm_df[col].astype(str) if col != "position" else esm_df[col].astype(int)
             sge_df[col] = sge_df[col].astype(str) if col != "position" else sge_df[col].astype(int)
+
+        # Several SNVs can encode the same AA substitution; average them so the
+        # left join stays one row per (position, mut_aa)
+        sge_df = sge_df.groupby(join_cols, as_index=False).agg({"sge_score": "mean"})
+        sge_df["sge_class"] = sge_df["sge_score"].map(classify_sge)
 
         merged = esm_df.merge(
             sge_df[join_cols + ["sge_score", "sge_class"]],

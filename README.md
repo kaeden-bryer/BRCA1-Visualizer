@@ -7,11 +7,12 @@ from BRCA1 saturation genome editing (Findlay et al., *Nature* 2018).
 
 Built for MLH Hacktoberfest (open-source / open-weight AI in biology).
 
-> **Current status:** the `esm_score` column in `data/variant_scores.csv` is
-> **placeholder random data**. The real ESM-2 scan has not been run yet. Everything else
-> is real: the wild-type sequence, the experimental SGE scores and the PDB structure. The
-> displayed AUROC (~0.51) therefore reflects random scores, not the model. To produce real
-> scores, see [Regenerating the data](#regenerating-the-data).
+## Result
+
+Using `esm2_t33_650M_UR50D` with no training on the experimental data, ESM-2 separates
+loss-of-function from functional BRCT missense variants with **AUROC = 0.890**
+(267 LOF vs 829 FUNC). Across all variants, LOF substitutions average an ESM score of −9.1,
+compared with −3.6 for FUNC.
 
 ## What it shows
 
@@ -72,9 +73,6 @@ The app reads only local files (`data/variant_scores.csv`, `data/metrics.json` a
 ## Regenerating the data
 
 ```bash
-# Placeholder data: real WT sequence + real SGE scores, random ESM scores (instant)
-python3 scripts/generate_stubs.py
-
 # Experimental SGE scores from Findlay et al. Supplementary Table 3 → cache/sge_scores.csv
 python3 scripts/fetch_sge_from_paper.py
 
@@ -84,7 +82,11 @@ python3 scripts/run_pipeline.py [--force]
 
 The full pipeline caches intermediate results in `cache/`. The ESM-2 scan is the slow
 step. `notebooks/run_pipeline.ipynb` runs the same pipeline on Google Colab when a GPU is
-available.
+available. If you already have `cache/esm_scores.csv`, run only the join step:
+`python3 -m pipeline.join_and_evaluate`.
+
+`scripts/generate_stubs.py` writes placeholder data with random ESM scores, for UI work
+before the scan exists. It **overwrites** the real `data/` files.
 
 The MaveDB deposit of the Findlay dataset is nucleotide-level only (no protein-level
 HGVS). That's why the SGE scores come from the paper's supplementary table.

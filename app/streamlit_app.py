@@ -334,7 +334,7 @@ with col_heat:
     # Issue 4: Click-to-select on heatmap
     event = st.plotly_chart(
         fig,
-        use_container_width=True,
+        width="stretch",
         on_select="rerun",
         selection_mode="points",
         key="heatmap",
@@ -389,7 +389,7 @@ with val_col1:
             title="ESM score vs SGE score",
         )
         scatter.update_layout(height=420)
-        st.plotly_chart(scatter, use_container_width=True)
+        st.plotly_chart(scatter, width="stretch")
     else:
         st.info("No variants with both ESM and SGE scores available.")
 
@@ -417,7 +417,7 @@ with val_col2:
                 yaxis_title="True Positive Rate",
                 height=420,
             )
-            st.plotly_chart(roc_fig, use_container_width=True)
+            st.plotly_chart(roc_fig, width="stretch")
         else:
             st.info("Not enough LOF/FUNC variants for ROC curve.")
     except ImportError:
